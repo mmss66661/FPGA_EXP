@@ -1,0 +1,34 @@
+# Quartus II generated files
+db/
+incremental_db/
+output_files/
+simulation/qsim/
+simulation/modelsim/
+*.qws
+*.rpt
+*.summary
+*.smsg
+*.done
+*.pof
+*.sof
+*.sld
+*.jdi
+*.pin
+*.cdf
+*.qmsg
+*.rdb
+*.cdb
+*.hdb
+*.qdb
+*.qtl
+*.qpg
+
+# Editor / OS
+*.bak
+*.tmp
+*~
+Thumbs.db
+desktop.ini
+.DS_Store
+**/work/
+transcript
