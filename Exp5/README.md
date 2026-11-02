@@ -82,6 +82,7 @@
 
 1. 先把对应 `.bdf` 设为顶层，否则波形里的信号与顶层对不上。
 2. **File → Open…** 选中 `.vwf`，Quartus 用**波形编辑器（Waveform Editor）**打开：左侧是信号名，右侧是时间轴上的电平，可直接看到 `clk1`、`Sd1`、`Rd1`、`D1` 等激励。
+   任务 1/2 的 `Sd1`、`Rd1` 按实物按键极性设置：平时为 `1`，按下为 `0`。
 3. 想看输出真正跳变：编译后点 **Tools → Run Simulation Tool → RTL Simulation**，ModelSim 会用该 `.vwf` 生成测试平台并显示 `Q1/Q1N`、`k_out/Q0~Q2` 的仿真结果；未跑仿真前输出显示 `X` 属正常。
 4. `.vwf` 本质是文本，也可以用记事本/VSCode 打开，但可读性差，建议用波形编辑器。
 
