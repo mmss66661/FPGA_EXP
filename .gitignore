@@ -4,6 +4,9 @@ incremental_db/
 output_files/
 simulation/qsim/
 simulation/modelsim/
+**/simulation/qsim/
+**/simulation/modelsim/
+qsim/
 *.qws
 *.rpt
 *.summary
