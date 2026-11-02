@@ -14,18 +14,14 @@ def task1():
     rd = d.input_pin("Rd1", 40, 120)
     clk = d.input_pin("clk1", 40, 136)
 
-    n_sd = d.inst("not", 216, 80, "inst")
-    n_rd = d.inst("not", 216, 112, "inst1")
     ff = d.inst("7474", 392, 72, "inst2")
 
     q1 = d.output_pin("Q1", 600, 120)
     q1n = d.output_pin("Q1N", 600, 136)
 
-    d.wire(sd, n_sd["IN"])
-    d.wire(n_sd["OUT"], ff["1PRN"])
+    d.wire(sd, ff["1PRN"])
     d.wire(d1, ff["1D"])
-    d.wire(rd, n_rd["IN"])
-    d.wire(n_rd["OUT"], ff["1CLRN"])
+    d.wire(rd, ff["1CLRN"])
     d.wire(clk, ff["1CLK"])
     d.wire(ff["1Q"], q1)
     d.wire(ff["1QN"], q1n)
@@ -40,19 +36,15 @@ def task2():
     rd = d.input_pin("Rd1", 40, 136)
     clk = d.input_pin("clk1", 40, 152)
 
-    n_sd = d.inst("not", 216, 80, "inst")
-    n_rd = d.inst("not", 216, 128, "inst1")
     ff = d.inst("74112", 392, 72, "inst2")
 
     q1 = d.output_pin("Q1", 600, 136)
     q1n = d.output_pin("Q1N", 600, 152)
 
-    d.wire(sd, n_sd["IN"])
-    d.wire(n_sd["OUT"], ff["1PRN"])
+    d.wire(sd, ff["1PRN"])
     d.wire(j1, ff["1J"])
     d.wire(k1, ff["1K"])
-    d.wire(rd, n_rd["IN"])
-    d.wire(n_rd["OUT"], ff["1CLRN"])
+    d.wire(rd, ff["1CLRN"])
     d.wire(clk, ff["1CLK"])
     d.wire(ff["1Q"], q1)
     d.wire(ff["1QN"], q1n)

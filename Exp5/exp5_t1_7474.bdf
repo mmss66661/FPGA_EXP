@@ -63,24 +63,6 @@
 	)
 	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
 )
-(symbol (rect 216 80 264 112)(text "NOT"(rect 1 0 17 9)(font "Arial"(font_size 6)))(text "inst"(rect 3 21 26 35)(font "Arial"(font_size 7)))
-	(port (pt 0 16)(input)(text "IN"(rect 2 7 12 19)(font "Courier New"(bold))(invisible))(text "IN"(rect 2 7 12 19)(font "Courier New"(bold))(invisible))
-		(line (pt 0 16)(pt 13 16)(line_width 1)))
-	(port (pt 48 16)(output)(text "OUT"(rect 32 7 47 19)(font "Courier New"(bold))(invisible))(text "OUT"(rect 32 7 47 19)(font "Courier New"(bold))(invisible))
-		(line (pt 39 16)(pt 48 16)(line_width 1)))
-	(drawing 
-		(line (pt 13 25)(pt 13 7)(line_width 1))
-		(line (pt 13 7)(pt 31 16)(line_width 1))
-		(line (pt 13 25)(pt 31 16)(line_width 1))(circle (rect 31 12 39 20)(line_width 1))))
-(symbol (rect 216 112 264 144)(text "NOT"(rect 1 0 17 9)(font "Arial"(font_size 6)))(text "inst1"(rect 3 21 26 35)(font "Arial"(font_size 7)))
-	(port (pt 0 16)(input)(text "IN"(rect 2 7 12 19)(font "Courier New"(bold))(invisible))(text "IN"(rect 2 7 12 19)(font "Courier New"(bold))(invisible))
-		(line (pt 0 16)(pt 13 16)(line_width 1)))
-	(port (pt 48 16)(output)(text "OUT"(rect 32 7 47 19)(font "Courier New"(bold))(invisible))(text "OUT"(rect 32 7 47 19)(font "Courier New"(bold))(invisible))
-		(line (pt 39 16)(pt 48 16)(line_width 1)))
-	(drawing 
-		(line (pt 13 25)(pt 13 7)(line_width 1))
-		(line (pt 13 7)(pt 31 16)(line_width 1))
-		(line (pt 13 25)(pt 31 16)(line_width 1))(circle (rect 31 12 39 20)(line_width 1))))
 (symbol (rect 392 72 512 232)(text "7474"(rect 46 1 74 17)(font "Arial"(font_size 10)))(text "inst2"(rect 3 149 7 159)(font "Arial"(font_size 6)))
 	(port (pt 0 104)(input)(text "2D"(rect 19 99 32 113)(font "Arial"(font_size 8)))(text "2D"(rect 19 99 32 113)(font "Arial"(font_size 8)))
 		(line (pt 0 104)(pt 16 104)(line_width 1)))
@@ -145,10 +127,6 @@
 )
 (connector
 	(pt 208 96)
-	(pt 216 96)
-)
-(connector
-	(pt 264 96)
 	(pt 392 96)
 )
 (connector
@@ -157,10 +135,6 @@
 )
 (connector
 	(pt 208 128)
-	(pt 216 128)
-)
-(connector
-	(pt 264 128)
 	(pt 392 128)
 )
 (connector

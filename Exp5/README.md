@@ -23,8 +23,8 @@
 
 | 任务 | 顶层实体 | 主要文件 | 说明 |
 | --- | --- | --- | --- |
-| 任务 1：74LS74 D 触发器测试 | `exp5_t1_7474` | `exp5_t1_7474.bdf`、`exp5_t1_7474.vwf` | Sd1/Rd1 经非门接 `1PRN/1CLRN`，D1→`1D`，clk1→`1CLK`，输出 Q1、Q1N |
-| 任务 2：74LS112 J-K 触发器测试 | `exp5_t2_74112` | `exp5_t2_74112.bdf`、`exp5_t2_74112.vwf` | 同任务 1 的接法，增加 J1、K1 |
+| 任务 1：74LS74 D 触发器测试 | `exp5_t1_7474` | `exp5_t1_7474.bdf`、`exp5_t1_7474.vwf` | Sd1/Rd1 直接接低有效的 `1PRN/1CLRN`，D1→`1D`，clk1→`1CLK`，输出 Q1、Q1N |
+| 任务 2：74LS112 J-K 触发器测试 | `exp5_t2_74112` | `exp5_t2_74112.bdf`、`exp5_t2_74112.vwf` | Sd1/Rd1 直接接低有效的 `1PRN/1CLRN`，J1→`1J`，K1→`1K`，clk1→`1CLK` |
 | 任务 3：按键去抖动模块 | `keyin` | `keyin.bdf`、`keyin.bsf`、`keyin.vwf` | 2×DFF + 2×NOT + AND3，`k_out = Q1·/Q2·clk`，另引出 Q0/Q1/Q2 便于观察 |
 | 任务 3：脉冲计数顶层 | `exp5_top` | `exp5_top.bdf` + `fenpin.vhd`、`rising_edge_detect.vhd`、`seg_show.vhd` 及其 `.bsf` | KEY0 去抖、KEY1 直通 → 或门 → 计数 → 4 位数码管显示 |
 | 选做：J-K → D | `exp5_t4_jk2d` | `exp5_t4_jk2d.bdf` | J=D，K=/D |
@@ -87,6 +87,7 @@
 
 ## 电路要点
 
+- **任务 1/2 的按键极性**：DE10-Lite 的 KEY0/KEY1（`PIN_A7`、`PIN_B8`）按下为低电平，74LS74/74LS112 的 `PRN`、`CLRN` 也是低有效，因此按键应直接接到对应引脚，不要再串非门。按下 `Sd1` 置位（Q=1），按下 `Rd1` 复位（Q=0）；两个按键不能同时按下。
 - **按键去抖动**：`k_in` 经非门后串入两个由 50 Hz 时钟（反相后下降沿触发）采样的 D 触发器，与门输出 `k_out = Q1·/Q2·clk`；只有按键电平连续稳定两个采样周期才输出一个宽约 10 ms 的单脉冲，窄的抖动被滤除。
 - **脉冲计数**：`rising_edge_detect` 以 `KEY_IN` 上升沿为计数时钟，4 位 BCD 级联，实现 0000~9999 计数。
 - **显示**：`seg_show` 把 4 位 BCD 译成共阳七段码（`0` 点亮），小数点 `HEXx[7]` 恒为高（熄灭）。
@@ -95,8 +96,11 @@
 ## 验证记录
 
 - 6 个顶层 `quartus_map`：全部 0 error（任务 1/2 各有 2 条寄存器等效转换类 warning，属 74 系列异步控制端在 MAX 10 上的正常提示）。
+- `exp5_t1_7474`、`exp5_t2_74112` 全流程：Map / Fit / Assembler 均 0 error。
 - `exp5_top` 全流程：Fitter / Assembler / Timing Analyzer 均成功，生成 `output_files/exp5.sof`。
 - 网表核对（`tools/check_net.py`）：
+  - `exp5_t1_7474`：`Sd1→1PRN`、`Rd1→1CLRN`、`D1→1D`、`clk1→1CLK`，置位/复位按键不再经非门。
+  - `exp5_t2_74112`：`Sd1→1PRN`、`Rd1→1CLRN`、`J1→1J`、`K1→1K`、`clk1→1CLK`。
   - `keyin`：`k_in→NOT→DFF0.D`，`DFF0.Q→DFF1.D/AND3.IN1`，`DFF1.Q→NOT→AND3.IN2`，`clk→NOT→两 DFF 时钟`、`clk→AND3.IN3`，`AND3.OUT→k_out`，PRN/CLRN 接 VCC。
   - `exp5_top`：`KEY0→keyin`、`KEY1→NOT→OR2`、`OR2.OUT→KEY_sig/rising_edge_detect`、`D[15:0]→KD/SEG_show`、`HEX0~3[7:0]→引脚`、`fenpin.clk_50→keyin.clk`。
 
