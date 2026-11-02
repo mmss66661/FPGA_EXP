@@ -4,6 +4,14 @@
 
 已验证：Quartus Prime Lite **19.1** 下 6 个顶层（任务 1、任务 2、任务 3、keyin、两个选做）Analysis & Synthesis 均为 **0 error**；`exp5_top` 完整流程（Map/Fit/Assemble/Timing）通过并生成 `output_files/exp5.sof`。
 
+## 完成情况
+
+- 5.1 必做：74LS74 测试电路、波形和引脚约束已完成。
+- 5.2 必做：74LS112 测试电路、波形和引脚约束已完成。
+- 5.4 必做：按键去抖模块 `keyin`、分频模块 `fenpin`、计数器 `rising_edge_detect`、显示译码 `seg_show`、脉冲计数顶层及两套顶层仿真激励已完成。
+- 5.3 选做：J-K→D、J-K→T 两个电路及对应波形已完成；未做硬件实测记录。
+- 讲义表 5.4、5.5、5.7、5.8 和数码管显示照片需要上板测量后填写，不属于代码文件。
+
 ## 环境
 
 | 项目 | 说明 |
@@ -21,17 +29,37 @@
 
 ## 任务与文件对照
 
-| 任务 | 顶层实体 | 主要文件 | 说明 |
-| --- | --- | --- | --- |
-| 任务 1：74LS74 D 触发器测试 | `exp5_t1_7474` | `exp5_t1_7474.bdf`、`exp5_t1_7474.vwf` | Sd1/Rd1 直接接低有效的 `1PRN/1CLRN`，D1→`1D`，clk1→`1CLK`，输出 Q1、Q1N |
-| 任务 2：74LS112 J-K 触发器测试 | `exp5_t2_74112` | `exp5_t2_74112.bdf`、`exp5_t2_74112.vwf` | Sd1/Rd1 直接接低有效的 `1PRN/1CLRN`，J1→`1J`，K1→`1K`，clk1→`1CLK` |
-| 任务 3：按键去抖动模块 | `keyin` | `keyin.bdf`、`keyin.bsf`、`keyin.vwf` | 2×DFF + 2×NOT + AND3，`k_out = Q1·/Q2·clk`，另引出 Q0/Q1/Q2 便于观察 |
-| 任务 3：脉冲计数顶层 | `exp5_top` | `exp5_top.bdf` + `fenpin.vhd`、`rising_edge_detect.vhd`、`seg_show.vhd` 及其 `.bsf` | KEY0 去抖、KEY1 直通 → 或门 → 计数 → 4 位数码管显示 |
-| 选做：J-K → D | `exp5_t4_jk2d` | `exp5_t4_jk2d.bdf` | J=D，K=/D |
-| 选做：J-K → T | `exp5_t4_jk2t` | `exp5_t4_jk2t.bdf` | J=K=T，T=1 即 T′ |
-| 工具脚本 | — | `tools/*.py` | 生成 BDF/BSF/VWF、写引脚约束、填写预习报告、导出网表检查 |
+| 任务 | 讲义图 | 顶层实体 | 主要文件 | 说明 |
+| --- | --- | --- | --- | --- |
+| 任务 1：74LS74 D 触发器测试 | 图 5.9 | `exp5_t1_7474` | `exp5_t1_7474.bdf`、`exp5_t1_7474.vwf` | Sd1/Rd1 直接接低有效的 `1PRN/1CLRN`，D1→`1D`，clk1→`1CLK`，输出 Q1、Q1N |
+| 任务 2：74LS112 J-K 触发器测试 | 图 5.12 | `exp5_t2_74112` | `exp5_t2_74112.bdf`、`exp5_t2_74112.vwf` | Sd1/Rd1 直接接低有效的 `1PRN/1CLRN`，J1→`1J`，K1→`1K`，clk1→`1CLK` |
+| 选做：J-K → D | 图 5.14 | `exp5_t4_jk2d` | `exp5_t4_jk2d.bdf`、`exp5_t4_jk2d.vwf` | J=D，K=/D |
+| 选做：J-K → T | 图 5.15 | `exp5_t4_jk2t` | `exp5_t4_jk2t.bdf`、`exp5_t4_jk2t.vwf` | J=K=T，T=1 即 T′ |
+| 任务 3：按键去抖动模块 | 图 5.16、5.18 | `keyin` | `keyin.bdf`、`keyin.bsf`、`keyin.vwf` | 2×DFF + 2×NOT + AND3，`k_out = Q1·/Q2·clk`，另引出 Q0/Q1/Q2 便于观察 |
+| 任务 3：分频模块 | 图 5.19 | `fenpin` | `fenpin.vhd`、`fenpin.bsf` | 50 MHz 分频，产生 `clk_5M`、`clk_500k`、`clk_10k`、`clk_5k`、`clk_500`、`clk_50`、`clk_1` |
+| 任务 3：计数器 | 图 5.19 | `rising_edge_detect` | `rising_edge_detect.vhd`、`rising_edge_detect.bsf` | 对 `KEY_IN` 上升沿计数，输出 4 位 BCD：`D[3:0]` 个位、`D[7:4]` 十位、`D[11:8]` 百位、`D[15:12]` 千位 |
+| 任务 3：显示译码 | 图 5.19 | `seg_show` | `seg_show.vhd`、`seg_show.bsf` | 4 位 BCD 转共阳七段码，驱动 `HEX0~HEX3` |
+| 任务 3：脉冲计数顶层 | 图 5.19 | `exp5_top` | `exp5_top.bdf`、`exp5_top.vwf`、`exp5_top_key1.vwf` | KEY0 去抖、KEY1 直通 → 或门 → 计数器 → 4 位数码管显示 |
+| 工具脚本 | — | — | `tools/*.py` | 生成 BDF/BSF/VWF、写引脚约束、填写预习报告、导出网表检查 |
+
+> 任务 3 按讲义图 5.19 采用层次设计，没有单独的 `exp5_t3.bdf`：`keyin` 是去抖子模块，`exp5_top` 是包含分频、计数、译码和数码管输出的完整顶层。
 
 > 工程目录用 ASCII 名 `Exp5/`：Quartus 对中文文件名支持不佳（`exp3.qsf` 里那条乱码 BDF 引用就是例子），课程资料仍放在 `../实验5/`。
+
+### 计数器 `rising_edge_detect`
+
+`rising_edge_detect.vhd` 就是讲义图 5.19 中的“按键计数模块”，不是单纯的边沿检测器：
+
+| 输出位 | 含义 |
+| --- | --- |
+| `D[3:0]` | 十进制个位 |
+| `D[7:4]` | 十进制十位 |
+| `D[11:8]` | 十进制百位 |
+| `D[15:12]` | 十进制千位 |
+
+每来一个 `KEY_IN` 上升沿，计数值加 1；计到 9999 后回到 0000。KEY0 经过 `keyin` 去抖，一次按键只加 1；KEY1 未去抖，一次按键的抖动会产生多个上升沿，因此会多加。
+
+单独的计数器单元波形是 `rising_edge_detect.vwf`：`KEY_IN` 周期 100 ns，20 个上升沿后 `D` 从 0 计到 20，可直接观察个位和十位 BCD 的变化。
 
 ## 引脚分配
 
@@ -78,27 +106,38 @@
 | --- | --- |
 | `exp5_t1_7474.vwf` | `exp5_t1_7474` |
 | `exp5_t2_74112.vwf` | `exp5_t2_74112` |
+| `exp5_t4_jk2d.vwf` | `exp5_t4_jk2d` |
+| `exp5_t4_jk2t.vwf` | `exp5_t4_jk2t` |
 | `keyin.vwf` | `keyin` |
+| `rising_edge_detect.vwf` | `rising_edge_detect`（计数器单元测试） |
+| `exp5_top.vwf` | `exp5_top`（仅 KEY0 按键） |
+| `exp5_top_key1.vwf` | `exp5_top`（仅 KEY1 按键） |
 
 1. 先把对应 `.bdf` 设为顶层，否则波形里的信号与顶层对不上。
 2. **File → Open…** 选中 `.vwf`，Quartus 用**波形编辑器（Waveform Editor）**打开：左侧是信号名，右侧是时间轴上的电平，可直接看到 `clk1`、`Sd1`、`Rd1`、`D1` 等激励。
    任务 1/2 的 `Sd1`、`Rd1` 按实物按键极性设置：平时为 `1`，按下为 `0`。
-3. 想看输出真正跳变：编译后点 **Tools → Run Simulation Tool → RTL Simulation**，ModelSim 会用该 `.vwf` 生成测试平台并显示 `Q1/Q1N`、`k_out/Q0~Q2` 的仿真结果；未跑仿真前输出显示 `X` 属正常。
-4. `.vwf` 本质是文本，也可以用记事本/VSCode 打开，但可读性差，建议用波形编辑器。
+3. `exp5_top.vwf` / `exp5_top_key1.vwf` 按讲义设置 `CLK_50M` 周期为 20 ns，按键按下为 `0`、松开为 `1`；两路按键信号带同样抖动，`KD[15:0]` 是计数输出。两个文件分别只按 KEY0 和只按 KEY1，便于对比去抖效果。
+4. 想看输出真正跳变：编译后点 **Tools → Run Simulation Tool → RTL Simulation**，ModelSim 会用该 `.vwf` 生成测试平台并显示 `Q1/Q1N`、`k_out/Q0~Q2`、`KD` 的仿真结果；未跑仿真前输出显示 `X` 属正常。
+5. `.vwf` 本质是文本，也可以用记事本/VSCode 打开，但可读性差，建议用波形编辑器。
 
 ## 电路要点
 
 - **任务 1/2 的按键极性**：DE10-Lite 的 KEY0/KEY1（`PIN_A7`、`PIN_B8`）按下为低电平，74LS74/74LS112 的 `PRN`、`CLRN` 也是低有效，因此按键应直接接到对应引脚，不要再串非门。按下 `Sd1` 置位（Q=1），按下 `Rd1` 复位（Q=0）；两个按键不能同时按下。
+- **触发沿不同**：74LS74 是 **上升沿** 触发，74LS112 是 **下降沿** 触发；看任务 2 和选做波形时，`Q1` 在 `clk1` 的下降沿变化。
+- **选做转换**：J-K→D 令 `J=D`、`K=/D`，等效为下降沿 D 触发器；J-K→T 令 `J=K=T`，`T=1` 时每个时钟下降沿翻转。
 - **按键去抖动**：`k_in` 经非门后串入两个由 50 Hz 时钟（反相后下降沿触发）采样的 D 触发器，与门输出 `k_out = Q1·/Q2·clk`；只有按键电平连续稳定两个采样周期才输出一个宽约 10 ms 的单脉冲，窄的抖动被滤除。
 - **脉冲计数**：`rising_edge_detect` 以 `KEY_IN` 上升沿为计数时钟，4 位 BCD 级联，实现 0000~9999 计数。
 - **显示**：`seg_show` 把 4 位 BCD 译成共阳七段码（`0` 点亮），小数点 `HEXx[7]` 恒为高（熄灭）。
 - **对比通路**：KEY0 经 `keyin` 去抖，KEY1 只经非门直连或门；按一次 KEY1 会因抖动多计数。
+- **任务 3 仿真**：`exp5_top.vwf` 中 KEY0 每按一次只加 1；`exp5_top_key1.vwf` 中同一段抖动会形成 5 个上升沿，`KD` 一次加 5，用于对比去抖效果。
 
 ## 验证记录
 
 - 6 个顶层 `quartus_map`：全部 0 error（任务 1/2 各有 2 条寄存器等效转换类 warning，属 74 系列异步控制端在 MAX 10 上的正常提示）。
-- `exp5_t1_7474`、`exp5_t2_74112` 全流程：Map / Fit / Assembler 均 0 error。
+- `rising_edge_detect` 单独作为顶层编译：0 error、0 warning，确认计数器本身可独立综合。
+- `exp5_t1_7474`、`exp5_t2_74112`、`exp5_t4_jk2d`、`exp5_t4_jk2t` 全流程：Map / Fit / Assembler 均 0 error。
 - `exp5_top` 全流程：Fitter / Assembler / Timing Analyzer 均成功，生成 `output_files/exp5.sof`。
+- 仿真激励文件已补齐：任务 3 顶层分别提供仅 KEY0、仅 KEY1 的 `exp5_top.vwf` / `exp5_top_key1.vwf`；两个选做电路也各提供 `.vwf`。
 - 网表核对（`tools/check_net.py`）：
   - `exp5_t1_7474`：`Sd1→1PRN`、`Rd1→1CLRN`、`D1→1D`、`clk1→1CLK`，置位/复位按键不再经非门。
   - `exp5_t2_74112`：`Sd1→1PRN`、`Rd1→1CLRN`、`J1→1J`、`K1→1K`、`clk1→1CLK`。

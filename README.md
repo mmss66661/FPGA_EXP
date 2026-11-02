@@ -141,7 +141,7 @@ Exp3/
 
 - 任务 1：`exp5_t1_7474.bdf`（74LS74 D 触发器功能测试）+ `exp5_t1_7474.vwf`
 - 任务 2：`exp5_t2_74112.bdf`（74LS112 J-K 触发器功能测试）+ `exp5_t2_74112.vwf`
-- 任务 3：`keyin.bdf`（2 个 D 触发器 + 三输入与门的按键去抖动模块）、`fenpin.vhd`（50 MHz 分频）、`rising_edge_detect.vhd`（4 位 BCD 按键计数）、`seg_show.vhd`（七段译码）、`exp5_top.bdf`（顶层：去抖/未去抖两路对比 + 数码管显示）+ `keyin.vwf`
-- 选做：`exp5_t4_jk2d.bdf`（J-K 转 D）、`exp5_t4_jk2t.bdf`（J-K 转 T）
+- 任务 3：`keyin.bdf`（2 个 D 触发器 + 三输入与门的按键去抖动模块）、`fenpin.vhd`（50 MHz 分频）、`rising_edge_detect.vhd`（4 位 BCD 按键计数）+ `rising_edge_detect.vwf`、`seg_show.vhd`（七段译码）、`exp5_top.bdf`（顶层：去抖/未去抖两路对比 + 数码管显示）+ `keyin.vwf`、`exp5_top.vwf`、`exp5_top_key1.vwf`
+- 选做：`exp5_t4_jk2d.bdf`（J-K 转 D）+ `exp5_t4_jk2d.vwf`、`exp5_t4_jk2t.bdf`（J-K 转 T）+ `exp5_t4_jk2t.vwf`
 
 预习报告已完成：`实验5/实验五 预习报告（已完成）.docx`。完整引脚表、层次设计与仿真波形查看方法见 `Exp5/README.md`。
