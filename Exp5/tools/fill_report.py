@@ -33,7 +33,7 @@ ANSWERS = {
     ],
     16: [
         "本实验使用的功能扩展板通过 2×20（40 芯）通用 IO 插座 P1 与 DE10-Lite 的 GPIO 口（JP1，GPIO[0]~GPIO[35]）对接，板上主要包括以下接口和测试点：",
-        "（1）通用 IO 接口：2×20 排针 P1，引脚包括 8 个按键、16 路 GPIO（GPIO18~GPIO26 等）、DAC/ADC 数据线与控制线；",
+        "（1）通用 IO 接口：2×20 排针 P1，包括 8 个按键、GPIO9 与 GPIO18~GPIO26 等通用 IO，以及 DAC/ADC 的数据线和控制线；",
         "（2）按键：KEY1~KEY8，共 8 个独立按键，本实验的 KEY0、KEY1 即取自扩展板按键，经 GPIO 口引入 FPGA；",
         "（3）DAC 通路：DADB0~DADB7 数据线、DACLOCK 控制线、DAC 芯片、DAC 信号接口及 DAC 信号测试点；",
         "（4）ADC 通路：ADD0~ADD7 数据线、ADCLOCK 控制线、ADC 芯片、ADC 信号接口（ADC 输入）、ADC 信号测试点与输入信号测试点；",
