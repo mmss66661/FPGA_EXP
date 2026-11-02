@@ -32,3 +32,6 @@ desktop.ini
 .DS_Store
 **/work/
 transcript
+# Python helpers
+__pycache__/
+*.pyc
